@@ -15,7 +15,7 @@ pygame.display.set_caption("Hockey Game")
 
 #get button images
 START_IMG = pygame.image.load("assets\startbt.png").convert_alpha()
-#QUIT_IMG = pygame.image.load("assets\quitbtn.png").convert_alpha()
+QUIT_IMG = pygame.image.load("assets\quitbtn.png").convert_alpha()
 #create button objects
 start_btn = button.Button(300, 400, START_IMG, 1)
 quit_btn = button.Button(600, 400, QUIT_IMG, 1)
