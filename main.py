@@ -41,11 +41,11 @@ textRect.center = (550, 250)
 gamefont = pygame.font.Font('freesansbold.ttf', 25)
 
 
-def draw_text(text):
-    draw_text = font.render(text, 1, BLACK)
-    WIN.blit(draw_text, (WIDTH/2 - draw_text.get_width() /2, HEIGHT/2 - draw_text.get_height()/2))
+def draw_text(text, col):
+    draw_text = font.render(text, 1, col)
+    WIN.blit(draw_text, (WIDTH/2 - draw_text.get_width() /2, 150))
     pygame.display.update()
-    pygame.time.delay(5000)
+    pygame.time.delay(3000)
     pygame.quit()
     sys.exit()
     
@@ -89,7 +89,7 @@ def handle_puck_movment(puckRect, pmask, red, rmask, blue, bmask):
             puck_y_vel *= -1
         if abs(red.bottom - puckRect.top) < 50 and puck_y_vel < 0:
             puck_y_vel *= -1
-        if abs(red.right - puckRect.left) < 50 and puck_x_vel < 0:
+        if abs(red.right - puckRect.left) < 100 and puck_x_vel < 0:
             puck_x_vel *= -1
         if abs(red.left - puckRect.right) < 400 and puck_x_vel > 0:
             puck_x_vel *= -1
@@ -110,7 +110,7 @@ def handle_puck_movment(puckRect, pmask, red, rmask, blue, bmask):
 def game_screen():
     #create players and pucks
     red_score = 0
-    blue_score = 0
+    blue_score = 3
     redRect = pygame.Rect(700, 300, 50, 50)
     blueRect = pygame.Rect(100, 300, 50, 50)
     puckRect = pygame.Rect(WIDTH / 2 - 60, HEIGHT / 2 - 35, 200, 70)
@@ -125,13 +125,13 @@ def game_screen():
         WIN.blit(redPlayer, (redRect.x, redRect.y))
         WIN.blit(bluePlayer, (blueRect.x, blueRect.y))
         WIN.blit(puck, (puckRect.x, puckRect.y))
-        WIN.blit(bluetext, (30, 10))
-        WIN.blit(redtext, (WIDTH - 200, 10))
+        WIN.blit(bluetext, (40, 15))
+        WIN.blit(redtext, (WIDTH - 200, 15))
 
         if red_score == 3:
-            draw_text("Red wins!!")
+            draw_text("Red wins!!", RED)
         if blue_score == 3:
-            draw_text("Blue wins!!")
+            draw_text("Blue wins!!", BLUE)
 
         if(puckRect.x > 1000 and (233 < puckRect.y < 410)):
             blue_score += 1
@@ -145,7 +145,7 @@ def game_screen():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-        print(pygame.mouse.get_pos())
+
         keys_pressed = pygame.key.get_pressed()
         handle_red_movment(keys_pressed, redRect)
         handle_blue_movment(keys_pressed, blueRect)
