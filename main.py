@@ -1,4 +1,4 @@
-import pygame, sys, button
+import pygame, sys, button, os
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -14,23 +14,25 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Hockey Game")
 
 #get button images
+
+BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "Mappng.png")).convert(), (WIDTH, HEIGHT))
 START_IMG = pygame.image.load("assets\startbt.png").convert_alpha()
 QUIT_IMG = pygame.image.load("assets\quitbtn.png").convert_alpha()
 #create button objects
-start_btn = button.Button(300, 400, START_IMG, 1)
+start_btn = button.Button(350, 400, START_IMG, 1)
 quit_btn = button.Button(600, 400, QUIT_IMG, 1)
 
 #text object
 #create menu text object
 font = pygame.font.Font('freesansbold.ttf', 50)
-text = font.render('Menu Screen', True, BLACK, WHITE)
+text = font.render('Menu Screen', True, BLACK, ICE_BLUE)
 textRect = text.get_rect()
-textRect.center = (600, 250)
+textRect.center = (550, 250)
 
 def game_screen():
     run = True
     while run:
-        WIN.fill((0,0,0))
+        WIN.blit(BACKGROUND, (0,0))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
