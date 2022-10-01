@@ -6,8 +6,6 @@ FPS = 60
 VEL = 5
 puck_x_vel = 4
 puck_y_vel = 4
-red_score = 0
-blue_score = 0
 
 WIDTH, HEIGHT = 1152, 648
 #colours
@@ -88,16 +86,12 @@ def handle_puck_movment(puckRect, pmask, red, rmask, blue, bmask):
 
     if rmask.overlap(pmask, (int(offsetr_x), int(offsetr_y))):
         if abs(red.top - puckRect.bottom) < 50 and puck_y_vel > 0:
-            print("bottom")
             puck_y_vel *= -1
         if abs(red.bottom - puckRect.top) < 50 and puck_y_vel < 0:
-            print("top")
             puck_y_vel *= -1
         if abs(red.right - puckRect.left) < 50 and puck_x_vel < 0:
-            print("right")
             puck_x_vel *= -1
         if abs(red.left - puckRect.right) < 400 and puck_x_vel > 0:
-            print("left")
             puck_x_vel *= -1
 
     offsetb_x = blue.x - puckRect.x
@@ -105,32 +99,28 @@ def handle_puck_movment(puckRect, pmask, red, rmask, blue, bmask):
 
     if bmask.overlap(pmask, (int(offsetb_x), int(offsetb_y))):
         if abs(blue.top - puckRect.bottom) < 50 and puck_y_vel > 0:
-            print("bottom")
             puck_y_vel *= -1
         if abs(blue.bottom - puckRect.top) < 50 and puck_y_vel < 0:
-            print("top")
             puck_y_vel *= -1
         if abs(blue.right - puckRect.left) < 50 and puck_x_vel < 0:
-            print("right")
             puck_x_vel *= -1
         if abs(blue.left - puckRect.right) < 50 and puck_x_vel > 0:
-            print("left")
             puck_x_vel *= -1
 
 def game_screen():
     #create players and pucks
+    red_score = 0
+    blue_score = 0
     redRect = pygame.Rect(700, 300, 50, 50)
     blueRect = pygame.Rect(100, 300, 50, 50)
     puckRect = pygame.Rect(WIDTH / 2 - 60, HEIGHT / 2 - 35, 200, 70)
     puckmask = pygame.mask.from_surface(puck)
     redmask = pygame.mask.from_surface(redPlayer)
     bluemask = pygame.mask.from_surface(bluePlayer)
-
-    bluetext = gamefont.render(f'Blue Score: {blue_score}', True, BLUE)
-    redtext = gamefont.render(f'Red Score: {red_score}', True, RED)
-
     run = True
     while run:
+        bluetext = gamefont.render(f'Blue Score: {blue_score}', True, BLUE)
+        redtext = gamefont.render(f'Red Score: {red_score}', True, RED)
         WIN.blit(BACKGROUND, (0,0))
         WIN.blit(redPlayer, (redRect.x, redRect.y))
         WIN.blit(bluePlayer, (blueRect.x, blueRect.y))
@@ -143,10 +133,19 @@ def game_screen():
         if blue_score == 3:
             draw_text("Blue wins!!")
 
+        if(puckRect.x > 1000 and (233 < puckRect.y < 410)):
+            blue_score += 1
+            puckRect.x = WIDTH / 2 - 60
+            puckRect.y = HEIGHT / 2 - 35
+        if(puckRect.x < 55 and (233 < puckRect.y < 410)):
+            red_score += 1
+            puckRect.x = WIDTH / 2 - 60
+            puckRect.y = HEIGHT / 2 - 35
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
+        print(pygame.mouse.get_pos())
         keys_pressed = pygame.key.get_pressed()
         handle_red_movment(keys_pressed, redRect)
         handle_blue_movment(keys_pressed, blueRect)
