@@ -15,16 +15,16 @@ pygame.display.set_caption("Hockey Game")
 
 #get button images
 
-BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "Mappng.png")).convert(), (WIDTH, HEIGHT))
+BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join("assets", "Mappng.png")).convert(), (WIDTH, HEIGHT))
 START_IMG = pygame.image.load("assets\startbt.png").convert_alpha()
 QUIT_IMG = pygame.image.load("assets\quitbtn.png").convert_alpha()
 
 #create button objects
 start_btn = button.Button(350, 400, START_IMG, 1)
 quit_btn = button.Button(600, 400, QUIT_IMG, 1)
-redPlayer = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "RedPuck.png")), (50,50))
-bluePlayer = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "BluePuck.png")), (50,50))
-puck = pygame.image.load(os.path.join("Assets", "BlackPukc.png"))
+redPlayer = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "RedPuck.png")), (100,65))
+bluePlayer = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "BluePuck.png")), (125,85))
+puck = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "BlackPukc.png")), (120,70))
 #text object
 #create menu text object
 font = pygame.font.Font('freesansbold.ttf', 50)
@@ -38,6 +38,7 @@ def game_screen():
         WIN.blit(BACKGROUND, (0,0))
         WIN.blit(redPlayer, (100, 100))
         WIN.blit(bluePlayer, (200, 100))
+        WIN.blit(puck, (400, 100))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
