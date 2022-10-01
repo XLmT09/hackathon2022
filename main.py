@@ -4,6 +4,8 @@ pygame.init()
 clock = pygame.time.Clock()
 FPS = 60
 VEL = 5
+red_score = 0
+blue_socre = 0
 
 WIDTH, HEIGHT = 1152, 648
 #colours
@@ -32,6 +34,15 @@ font = pygame.font.Font('freesansbold.ttf', 50)
 text = font.render('Menu Screen', True, BLACK, ICE_BLUE)
 textRect = text.get_rect()
 textRect.center = (550, 250)
+
+def draw_text(text):
+    draw_text = font.render(text, 1, BLACK)
+    WIN.blit(draw_text, (WIDTH/2 - draw_text.get_width() /2, HEIGHT/2 - draw_text.get_height()/2))
+    pygame.display.update()
+    pygame.time.delay(5000)
+    pygame.quit()
+    sys.exit()
+    
 
 def handle_blue_movment(keys_pressed, blue):
     if keys_pressed[pygame.K_a] and blue.x - VEL > 0:  # LEFT
@@ -62,7 +73,13 @@ def game_screen():
         WIN.blit(BACKGROUND, (0,0))
         WIN.blit(redPlayer, (redRect.x, redRect.y))
         WIN.blit(bluePlayer, (blueRect.x, blueRect.y))
-        WIN.blit(puck, (400, 100))
+        WIN.blit(puck, (WIDTH / 2 - 50, HEIGHT / 2 - 35))
+
+        if red_score == 3:
+            draw_text("Red wins!!")
+        if blue_socre == 3:
+            draw_text("Blue wins!!")
+        print(pygame.mouse.get_pos())
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
