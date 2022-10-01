@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 import pygame, sys, button, os
 
 pygame.init()
@@ -25,6 +26,7 @@ quit_btn = button.Button(600, 400, QUIT_IMG, 1)
 redPlayer = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "RedPuck.png")), (50,50))
 bluePlayer = pygame.transform.scale(pygame.image.load(os.path.join("Assets", "BluePuck.png")), (50,50))
 puck = pygame.image.load(os.path.join("Assets", "BlackPukc.png"))
+
 #text object
 #create menu text object
 font = pygame.font.Font('freesansbold.ttf', 50)
@@ -33,11 +35,14 @@ textRect = text.get_rect()
 textRect.center = (550, 250)
 
 def game_screen():
+    #create players and pucks
+    redRect = pygame.Rect(700, 300, 50, 50)
+    blueRect = pygame.Rect(100, 300, 50, 50)
     run = True
     while run:
         WIN.blit(BACKGROUND, (0,0))
-        WIN.blit(redPlayer, (100, 100))
-        WIN.blit(bluePlayer, (200, 100))
+        WIN.blit(redPlayer, (redRect.x, redRect.y))
+        WIN.blit(bluePlayer, (, 100))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
