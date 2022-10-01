@@ -110,7 +110,7 @@ def handle_puck_movment(puckRect, pmask, red, rmask, blue, bmask):
 def game_screen():
     #create players and pucks
     red_score = 0
-    blue_score = 3
+    blue_score = 0
     redRect = pygame.Rect(700, 300, 50, 50)
     blueRect = pygame.Rect(100, 300, 50, 50)
     puckRect = pygame.Rect(WIDTH / 2 - 60, HEIGHT / 2 - 35, 200, 70)
